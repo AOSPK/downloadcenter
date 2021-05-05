@@ -12,9 +12,9 @@ const fetchDownloadsCount = async (filename, codename) => {
   }
 };
 
-const generateDownloadURL = (filename, codename, romtype) => {
-  const downloadBase = `https://download.aospk.org/eleven/${codename}/${romtype}/${filename}`;
-  return `${downloadBase}`;
+const generateDownloadURL = (filename, codename, android, romtype) => {
+  const downloadBase = `https://downloads.sourceforge.net/project/aospk/${android}/${codename}/${romtype}/${filename}`;
+  return `${downloadBase}?r=&ts=${getTimestamp()}&use_mirror=autoselect`;
 };
 
 export { fetchDownloadsCount, generateDownloadURL };
