@@ -24,9 +24,9 @@ const fetchDevices = async () => {
   }
 };
 
-const fetchBuilds = async (codename, variant) => {
+const fetchBuilds = async (codename, variant, android) => {
   try {
-    const res = await request(`${baseURL}/official_devices/master/builds/${variant}/${codename}.json`);
+    const res = await request(`${baseURL}/official_devices/master/builds/${android}/${variant}/${codename}.json`);
 
     const promises = res.response.map(async (build) => {
       const downloads = await fetchDownloadsCount(build.filename, codename);
@@ -49,9 +49,9 @@ const fetchBuilds = async (codename, variant) => {
 
 };
 
-const fetchChangelog = async (filename, codename) => {
+const fetchChangelog = async (filename, codename, android) => {
   try {
-    const res = await request(`${baseURL}/official_devices/master/changelogs/${codename}/${filename.replace('zip', 'txt')}`, false);
+    const res = await request(`${baseURL}/official_devices/master/changelogs/${android}/${variant}/${codename}/${filename.replace('zip', 'txt')}`, false);
 
     return res.includes('404') ? 'Changelog data no found' : res;
   } catch (err) {
@@ -60,7 +60,7 @@ const fetchChangelog = async (filename, codename) => {
 };
 
 const fetchROMChangelog = async () => {
-  const res = await request('https://raw.githubusercontent.com/AOSPK/official_devices/master/changelogs/AOSPK_eleven.md', false);
+  const res = await request('https://raw.githubusercontent.com/AOSPK/official_devices/master/changelogs/changelog.md', false);
   return res;
 };
 
