@@ -24,9 +24,9 @@ const fetchDevices = async () => {
   }
 };
 
-const fetchBuilds = async (codename, variant, android) => {
+const fetchBuilds = async (codename, variant) => {
   try {
-    const res = await request(`${baseURL}/official_devices/master/builds/${android}/${variant}/${codename}.json`);
+    const res = await request(`${baseURL}/official_devices/master/builds/eleven/${variant}/${codename}.json`);
 
     const promises = res.response.map(async (build) => {
       const downloads = await fetchDownloadsCount(build.filename, codename);
@@ -49,9 +49,9 @@ const fetchBuilds = async (codename, variant, android) => {
 
 };
 
-const fetchChangelog = async (filename, codename, android) => {
+const fetchChangelog = async (filename, codename) => {
   try {
-    const res = await request(`${baseURL}/official_devices/master/changelogs/${android}/${variant}/${codename}/${filename.replace('zip', 'txt')}`, false);
+    const res = await request(`${baseURL}/official_devices/master/changelogs/eleven/${variant}/${codename}/${filename.replace('zip', 'txt')}`, false);
 
     return res.includes('404') ? 'Changelog data no found' : res;
   } catch (err) {

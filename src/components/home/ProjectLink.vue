@@ -37,7 +37,7 @@ export default {
         },
         {
           title: 'Be a maintainer!',
-          ref: 'https://forms.gle/k967Pzrqd1PBSqQTA',
+          ref: 'https://github.com/AOSPK/official_devices/issues/new/choose',
           svg_path:
             'M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1 10.199l-3.64 1.801 3.64 1.796v2.204l-6-2.935v-2.131l6-2.934v2.199zm8 2.866l-6 2.935v-2.204l3.64-1.796-3.64-1.801v-2.199l6 2.935v2.13z',
         },

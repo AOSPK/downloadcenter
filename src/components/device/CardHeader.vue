@@ -37,7 +37,7 @@
 
           <div v-if="!device.active" class="card-action xda-buttons">
             <a
-              href="https://forms.gle/k967Pzrqd1PBSqQTA"
+              href="https://github.com/AOSPK/official_devices/issues/new/choose"
               target="_blank"
               class="waves-effect btn red-bg"
             >Become the maintainer</a>
