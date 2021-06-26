@@ -1,16 +1,16 @@
 <template>
-    <div class="container" onclick="window.open('http://gerrit.aospk.org','mywindow');">
+    <div class="container" >
       <h3>Latest Changes</h3>
      <ul id="example-1">
   <li v-for="item in data" :key="item.id">
 
     <div class="flex">
-      <span class="title">
+      <a class="title" :href="`https://gerrit.aospk.org/c/${item.project}/+/${item._number}`" target="_blank">
         {{ item.subject }}
-      </span>
-      <span class="subtitle">
+      </a>
+      <a class="subtitle" :href="`https://gerrit.aospk.org/q/project:${item.project}+merged`" target="_blank">
         {{ item.project }}
-      </span>
+      </a>
     </div>
   </li>
 </ul>
