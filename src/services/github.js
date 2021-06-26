@@ -29,7 +29,7 @@ const fetchBuilds = async (codename, variant) => {
     const res = await request(`${baseURL}/official_devices/master/builds/eleven/${variant}/${codename}.json`);
 
     const promises = res.response.map(async (build) => {
-      const downloads = await fetchDownloadsCount(build.filename, codename);
+      const downloads = await fetchDownloadsCount(build.filename, codename, build.romtype);
       const changelog = await fetchChangelog(build.filename, codename, build.romtype) || "";
 
       return {
