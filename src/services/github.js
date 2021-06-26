@@ -64,4 +64,9 @@ const fetchROMChangelog = async () => {
   return res;
 };
 
-export { fetchDevices, fetchBuilds, fetchROMChangelog };
+const fetchMaintainers = async () => {
+  const res = await request('https://raw.githubusercontent.com/AOSPK/official_devices/master/team/maintainers.json', true);
+  return res;
+};
+
+export { fetchDevices, fetchBuilds, fetchROMChangelog, fetchMaintainers };

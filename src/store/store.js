@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import { fetchDevices, fetchBuilds } from '../services/github';
+import { fetchDevices, fetchBuilds, fetchMaintainers } from '../services/github';
 
 Vue.use(Vuex);
 
@@ -10,6 +10,7 @@ export const store = new Vuex.Store({
     devices: [],
     builds: {},
     device: {},
+    maintainers: [],
     deviceLoader: true,
     buildLoader: true,
     expandedBuild: null,
@@ -20,6 +21,9 @@ export const store = new Vuex.Store({
     },
     setDevice(state, device) {
       state.device = device;
+    },
+    setMaintainers(state, maintainers) {
+      state.maintainers = maintainers;
     },
     setBuilds(state, builds) {
       state.builds = builds;
@@ -43,9 +47,16 @@ export const store = new Vuex.Store({
         commit('updateDeviceLoader', false);
       }
     },
+
     async fetchBuilds({ commit, state }, props) {
       commit('updateBuildLoader', true);
       commit('setBuilds', []);
+
+      commit('setMaintainers', []);
+
+      const data = await fetchMaintainers();
+
+      commit('setMaintainers', data);
 
       console.log("BUILD FETCH " + state.device.supported_types);
 
@@ -66,10 +77,21 @@ export const store = new Vuex.Store({
       commit('updateBuildLoader', false);
     },
     filterDevice({ commit, state }, props) {
+
+      let maintainer = {};
+
+      for (const m of state.maintainers) {
+        if(m.devices.find((device) => device.codename === props.codename)) {
+          maintainer = m;
+        }
+      }
+
       state.devices
         .map(brand => brand.devices
           .filter(devices => devices.codename == props.codename)
-          .map(device => commit('setDevice', device)));
+          .map(device => commit('setDevice', {...device, maintainer})));
+
+      console.log(state.builds);
     },
     getIndexOfExpandedBuild({ commit, state }, filename) {
       let list = [];

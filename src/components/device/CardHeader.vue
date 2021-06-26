@@ -19,13 +19,13 @@
             <h6>{{device.codename}}</h6>
           </div>
 
-          <div v-if="device.active" class="deviceprop">
+          <div v-if="!device.deprecated" class="deviceprop">
             <i class="material-icons">person_outline</i>
-            <h6>{{device.maintainer_name}}</h6>
-            <Flag width="20px" :country="device.maintainer_country" />
+            <h6>{{device.maintainer.name}}</h6>
+            <Flag width="20px" :country="device.maintainer.country" />
           </div>
 
-          <div v-if="!device.active" class="deviceprop">
+          <div v-if="device.deprecated" class="deviceprop">
             <i class="material-icons red-icon">person_outline</i>
             <h6>No maintainer</h6>
           </div>
@@ -35,7 +35,7 @@
             <a v-bind:href="device.xda_thread" target="_blank" class="waves-effect btn">XDA Thread</a>
           </div>
 
-          <div v-if="!device.active" class="card-action xda-buttons">
+          <div v-if="device.deprecated" class="card-action xda-buttons">
             <a
               href="https://github.com/AOSPK/official_devices/issues/new/choose"
               target="_blank"
@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <div v-if="!device.active" class="row limiter">
+    <div v-if="device.deprecated" class="row limiter">
       <div class="col s12 m12">
         <div class="red-bg alert-box">
           <p>This device will no longer receive updates</p>

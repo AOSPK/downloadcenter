@@ -19,7 +19,7 @@ export default {
     this.$store.dispatch('fetchBuilds', this.$route.params);
   },
   mounted() {
-    console.log(this.$store.state.device);
+    console.log(this.$store.state);
   },
   watch: {
     '$route.params.codename': {
