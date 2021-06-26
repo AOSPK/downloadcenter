@@ -106,8 +106,7 @@ export default {
     },
     download(file, codename, android, romtype) {
       M.toast({ html: 'Download Started' });
-      //location.href = 
-      generateDownloadURL(file, codename, android, romtype);
+      location.href = generateDownloadURL(file, codename, android, romtype);
     },
   },
   computed: {
