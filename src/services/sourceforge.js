@@ -14,6 +14,7 @@ const fetchDownloadsCount = async (filename, codename, variant) => {
 
 const generateDownloadURL = (filename, codename, android, romtype) => {
   const downloadBase = `https://downloads.sourceforge.net/project/aospk/${android}/${codename}/${romtype}/${filename}`;
+  console.log(`${downloadBase}?r=&ts=${getTimestamp()}&use_mirror=autoselect`);
   return `${downloadBase}?r=&ts=${getTimestamp()}&use_mirror=autoselect`;
 };
 
