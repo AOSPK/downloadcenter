@@ -30,7 +30,7 @@ const fetchBuilds = async (codename, variant) => {
 
     const promises = res.response.map(async (build) => {
       const downloads = await fetchDownloadsCount(build.filename, codename);
-      const changelog = await fetchChangelog(build.filename, codename) || "";
+      const changelog = await fetchChangelog(build.filename, codename, build.romtype) || "";
 
       return {
         ...build,
@@ -49,7 +49,9 @@ const fetchBuilds = async (codename, variant) => {
 
 };
 
-const fetchChangelog = async (filename, codename) => {
+const fetchChangelog = async (filename, codename, variant) => {
+
+  console.log(`${baseURL}/official_devices/master/changelogs/eleven/${variant}/${codename}/${filename.replace('zip', 'txt')}`)
   try {
     const res = await request(`${baseURL}/official_devices/master/changelogs/eleven/${variant}/${codename}/${filename.replace('zip', 'txt')}`, false);
 
