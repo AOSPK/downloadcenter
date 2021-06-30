@@ -67,52 +67,58 @@
   </div>
 </template>
 <script>
-import Loading from '../common/Loading.vue';
-import { generateDownloadURL } from '../../services/sourceforge';
+import Loading from "../common/Loading.vue";
+import { generateDownloadURL } from "../../services/sourceforge";
 
 export default {
-  name: 'CardBuilds',
+  name: "CardBuilds",
   components: {
     Loading,
   },
-  updated() {
-    if (this.$route.params.filename) {
-      this.$store.dispatch(
-        'getIndexOfExpandedBuild',
-        this.$route.params.filename,
-      );
-      document.title = this.$route.params.filename || `Download Kraken for ${this.$route.params.codename}`;
-    }
+  mounted() {
     setTimeout(() => {
+      if (this.$route.params.filename) {
+        this.$store.dispatch(
+          "getIndexOfExpandedBuild",
+          this.$route.params.filename
+        );
+        console.log(this.$route.params.filename);
+        document.title =
+          this.$route.params.filename ||
+          `Download Kraken for ${this.$route.params.codename}`;
+      }
       this.openBuild(this.$store.state.expandedBuild);
-    this.$store.dispatch('getIndexOfExpandedBuild', '');
-    }, 1000)
+      this.$store.dispatch("getIndexOfExpandedBuild", null);
+    }, 1000);
   },
   methods: {
     setBuild(obj) {
-      const elems = document.querySelector('.collapsible-builds');
+      const elems = document.querySelector(".collapsible-builds");
       const instances = M.Collapsible.init(elems);
 
-      instances.options.onOpenEnd = () => this.$router.push({ name: 'filename', params: { filename: obj } });
+      instances.options.onOpenEnd = () =>
+        this.$router.push({ name: "filename", params: { filename: obj } });
 
-      instances.options.onCloseEnd = () => this.$router.replace({ name: 'filename', params: { filename: null } });
+      instances.options.onCloseEnd = () =>
+        this.$router.replace({ name: "filename", params: { filename: null } });
     },
     openBuild(index) {
+      console.log(`${index} opened`);
       if (!isNaN(index) && index !== -1) {
-        const elems = document.querySelector('.collapsible-builds');
+        const elems = document.querySelector(".collapsible-builds");
         const instances = M.Collapsible.init(elems);
         instances.open(index);
       }
     },
     download(file, codename, android, romtype) {
-      M.toast({ html: 'Download Started' });
+      M.toast({ html: "Download Started" });
       location.href = generateDownloadURL(file, codename, android, romtype);
     },
   },
   computed: {
     deviceBuilds() {
       return this.$store.state.device.supported_types.map((type) => {
-          return  { ...this.$store.state.builds[type][0], type};
+        return { ...this.$store.state.builds[type][0], type };
       });
     },
     device() {

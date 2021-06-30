@@ -56,11 +56,11 @@ ul {
   justify-content: space-between;
 }
 
-span:hover {
+a:hover {
   color: #fff;
 }
 
-span {
+a {
   font-size: 15px;
 }
 
